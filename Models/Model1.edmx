@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище PanasenkoLoft2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Lоft">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdSubjectMatter" Type="int" Nullable="false" />
+          <Property Name="PriceOneHour" Type="decimal" Precision="4" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Profiles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Number" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="IdRole" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reservations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdLoft" Type="int" Nullable="false" />
+          <Property Name="IdProfile" Type="int" Nullable="false" />
+          <Property Name="TimeReservation" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nameRole" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubjectMattеr">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubjectMatter" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_Lоft_SubjectMattеr">
+          <End Role="SubjectMattеr" Type="Self.SubjectMattеr" Multiplicity="1" />
+          <End Role="Lоft" Type="Self.Lоft" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubjectMattеr">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lоft">
+              <PropertyRef Name="IdSubjectMatter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profiles_IdRole">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Profiles" Type="Self.Profiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Profiles">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservations_Lоft">
+          <End Role="Lоft" Type="Self.Lоft" Multiplicity="1" />
+          <End Role="Reservations" Type="Self.Reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lоft">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reservations">
+              <PropertyRef Name="IdLoft" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservations_Profiles">
+          <End Role="Profiles" Type="Self.Profiles" Multiplicity="1" />
+          <End Role="Reservations" Type="Self.Reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profiles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reservations">
+              <PropertyRef Name="IdProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище PanasenkoLoft2ModelContainer">
+          <EntitySet Name="Lоft" EntityType="Self.Lоft" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profiles" EntityType="Self.Profiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reservations" EntityType="Self.Reservations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SubjectMattеr" EntityType="Self.SubjectMattеr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Lоft_SubjectMattеr" Association="Self.FK_Lоft_SubjectMattеr">
+            <End Role="SubjectMattеr" EntitySet="SubjectMattеr" />
+            <End Role="Lоft" EntitySet="Lоft" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profiles_IdRole" Association="Self.FK_Profiles_IdRole">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Profiles" EntitySet="Profiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservations_Lоft" Association="Self.FK_Reservations_Lоft">
+            <End Role="Lоft" EntitySet="Lоft" />
+            <End Role="Reservations" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservations_Profiles" Association="Self.FK_Reservations_Profiles">
+            <End Role="Profiles" EntitySet="Profiles" />
+            <End Role="Reservations" EntitySet="Reservations" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PanasenkoLoft2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PanasenkoLoft2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Lоft" EntityType="PanasenkoLoft2Model.Lоft" />
+          <EntitySet Name="Profiles" EntityType="PanasenkoLoft2Model.Profiles" />
+          <EntitySet Name="Reservations" EntityType="PanasenkoLoft2Model.Reservations" />
+          <EntitySet Name="Role" EntityType="PanasenkoLoft2Model.Role" />
+          <EntitySet Name="SubjectMattеr" EntityType="PanasenkoLoft2Model.SubjectMattеr" />
+          <EntitySet Name="sysdiagrams" EntityType="PanasenkoLoft2Model.sysdiagrams" />
+          <AssociationSet Name="FK_Lоft_SubjectMattеr" Association="PanasenkoLoft2Model.FK_Lоft_SubjectMattеr">
+            <End Role="SubjectMattеr" EntitySet="SubjectMattеr" />
+            <End Role="Lоft" EntitySet="Lоft" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservations_Lоft" Association="PanasenkoLoft2Model.FK_Reservations_Lоft">
+            <End Role="Lоft" EntitySet="Lоft" />
+            <End Role="Reservations" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profiles_IdRole" Association="PanasenkoLoft2Model.FK_Profiles_IdRole">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Profiles" EntitySet="Profiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reservations_Profiles" Association="PanasenkoLoft2Model.FK_Reservations_Profiles">
+            <End Role="Profiles" EntitySet="Profiles" />
+            <End Role="Reservations" EntitySet="Reservations" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Lоft">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSubjectMatter" Type="Int32" Nullable="false" />
+          <Property Name="PriceOneHour" Type="Decimal" Nullable="false" Precision="4" Scale="0" />
+          <NavigationProperty Name="SubjectMattеr" Relationship="PanasenkoLoft2Model.FK_Lоft_SubjectMattеr" FromRole="Lоft" ToRole="SubjectMattеr" />
+          <NavigationProperty Name="Reservations" Relationship="PanasenkoLoft2Model.FK_Reservations_Lоft" FromRole="Lоft" ToRole="Reservations" />
+        </EntityType>
+        <EntityType Name="Profiles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Number" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="IdRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="PanasenkoLoft2Model.FK_Profiles_IdRole" FromRole="Profiles" ToRole="Role" />
+          <NavigationProperty Name="Reservations" Relationship="PanasenkoLoft2Model.FK_Reservations_Profiles" FromRole="Profiles" ToRole="Reservations" />
+        </EntityType>
+        <EntityType Name="Reservations">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdLoft" Type="Int32" Nullable="false" />
+          <Property Name="IdProfile" Type="Int32" Nullable="false" />
+          <Property Name="TimeReservation" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Lоft" Relationship="PanasenkoLoft2Model.FK_Reservations_Lоft" FromRole="Reservations" ToRole="Lоft" />
+          <NavigationProperty Name="Profiles" Relationship="PanasenkoLoft2Model.FK_Reservations_Profiles" FromRole="Reservations" ToRole="Profiles" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nameRole" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Profiles" Relationship="PanasenkoLoft2Model.FK_Profiles_IdRole" FromRole="Role" ToRole="Profiles" />
+        </EntityType>
+        <EntityType Name="SubjectMattеr">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubjectMatter" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Lоft" Relationship="PanasenkoLoft2Model.FK_Lоft_SubjectMattеr" FromRole="SubjectMattеr" ToRole="Lоft" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Lоft_SubjectMattеr">
+          <End Type="PanasenkoLoft2Model.SubjectMattеr" Role="SubjectMattеr" Multiplicity="1" />
+          <End Type="PanasenkoLoft2Model.Lоft" Role="Lоft" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SubjectMattеr">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Lоft">
+              <PropertyRef Name="IdSubjectMatter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservations_Lоft">
+          <End Type="PanasenkoLoft2Model.Lоft" Role="Lоft" Multiplicity="1" />
+          <End Type="PanasenkoLoft2Model.Reservations" Role="Reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lоft">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reservations">
+              <PropertyRef Name="IdLoft" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profiles_IdRole">
+          <End Type="PanasenkoLoft2Model.Role" Role="Role" Multiplicity="1" />
+          <End Type="PanasenkoLoft2Model.Profiles" Role="Profiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Profiles">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reservations_Profiles">
+          <End Type="PanasenkoLoft2Model.Profiles" Role="Profiles" Multiplicity="1" />
+          <End Type="PanasenkoLoft2Model.Reservations" Role="Reservations" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profiles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reservations">
+              <PropertyRef Name="IdProfile" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PanasenkoLoft2ModelContainer" CdmEntityContainer="PanasenkoLoft2Entities">
+          <EntitySetMapping Name="Lоft">
+            <EntityTypeMapping TypeName="PanasenkoLoft2Model.Lоft">
+              <MappingFragment StoreEntitySet="Lоft">
+                <ScalarProperty Name="PriceOneHour" ColumnName="PriceOneHour" />
+                <ScalarProperty Name="IdSubjectMatter" ColumnName="IdSubjectMatter" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profiles">
+            <EntityTypeMapping TypeName="PanasenkoLoft2Model.Profiles">
+              <MappingFragment StoreEntitySet="Profiles">
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reservations">
+            <EntityTypeMapping TypeName="PanasenkoLoft2Model.Reservations">
+              <MappingFragment StoreEntitySet="Reservations">
+                <ScalarProperty Name="TimeReservation" ColumnName="TimeReservation" />
+                <ScalarProperty Name="IdProfile" ColumnName="IdProfile" />
+                <ScalarProperty Name="IdLoft" ColumnName="IdLoft" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="PanasenkoLoft2Model.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="nameRole" ColumnName="nameRole" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubjectMattеr">
+            <EntityTypeMapping TypeName="PanasenkoLoft2Model.SubjectMattеr">
+              <MappingFragment StoreEntitySet="SubjectMattеr">
+                <ScalarProperty Name="SubjectMatter" ColumnName="SubjectMatter" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PanasenkoLoft2Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

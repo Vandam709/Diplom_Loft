@@ -1,0 +1,58 @@
+﻿<Window x:Class="Diplom_Loft.View.Windows.Registration"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Diplom_Loft.View.Windows"
+        mc:Ignorable="d"
+         Title="OknoRegistration" Height="450" Width="550" WindowStartupLocation="CenterScreen"  WindowStyle="None"
+        ResizeMode="NoResize">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0" Opacity="0.9">
+                <GradientStop Color="#F0DC82" Offset="1"/>
+                <GradientStop Color="#9ACEEB" Offset="0"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="2*" />
+           
+
+        </Grid.RowDefinitions>
+      
+        <StackPanel  Grid.Row="1"  Grid.Column="1">
+            <TextBlock Name="LogT" Text="Введите логин" FontSize="20" Foreground="Black" Margin="2"/>
+            <TextBox x:Name="LogTb" FontSize="20" Margin="5"/>
+        </StackPanel>
+        <StackPanel  Grid.Row="2"  Grid.Column="1">
+            <TextBlock Name="PassT" Text="Введите пароль" FontSize="20" Foreground="Black" Margin="2"/>
+            <PasswordBox x:Name="PassTb" FontSize="20" Margin="5"/>
+        </StackPanel>
+        <Button Grid.Row="6"  Grid.Column="1" x:Name="RegBtn" Content="Зарегистрироваться"  FontSize="18" Margin="10" Width="220" Height="40" Click="RegBtn_Click" />
+        <Grid Grid.Row="0" Grid.Column="2" >
+            <StackPanel Orientation="Horizontal">
+                <Button Name="MinimizeBtn"
+                        Content="—" 
+                        ToolTip="Свернуть"
+                        Click="MinimizeBtn_Click"  Cursor=""/>
+                <Button Name="MaximizeBtn"
+                        Content="◱" 
+                        ToolTip="Развернуть"
+                        Click="MaximizeBtn_Click"/>
+                <Button Name="CloseAppBtn"
+                        Content="✕" 
+                        ToolTip="Закрыть"
+                        Click="CloseAppBtn_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
